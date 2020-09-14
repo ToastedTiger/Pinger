@@ -2,7 +2,7 @@
 # Author:       BM Dierks
 # Created:      2020/09/12
 # Last Edit:    2020/09/13
-# Description:  The inteded purpose of this program is to ping a given website 
+# Description:  The intended purpose of this program is to ping a given website 
 #               (google in this case). The returned pings are then graphed in 
 #               order to observed the stability of the connection.
 #
@@ -18,7 +18,7 @@ import numpy as np
 Threshold = 80
 
 # Amount of pings to send
-x = range(0,500)
+x = range(0,1000)
 
 # Size of package to send
 package = 50
@@ -66,6 +66,7 @@ plot.ylabel("Latency[ms]")
 plot.plot(x,yThreshold,'g')
 plot.plot(x,y, 'b')
 plot.plot(x,yOver, 'r')
+plot.show()
 
-
+# Program Done
 print ("DONE!!!")
