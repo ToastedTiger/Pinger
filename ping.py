@@ -12,7 +12,9 @@
 from pythonping import ping
 import matplotlib.pyplot as plot
 import numpy as np
+from datetime import datetime
 
+timeStart = datetime.now()
 # Variables to set
 # Threshold below which latency is acceptable in ms
 Threshold = 80
@@ -46,7 +48,6 @@ for i in x:
     else:
         yOver.append(CurrentPing)
 
-print ("Maximum Latency: \t", max(y), "\nMinimum Latency: \t", min(y), "\nAverage Latency: \t", round(np.average(y),2))
 
 # Write pings above threshold to new array
 for i in x:
@@ -58,15 +59,29 @@ for i in x:
     elif futFlag and not yOver[i]:
         yOver[i] = y[i]
         futFlag = False
-            
+
+runTime = datetime.now()-timeStart
+runTime = (runTime.seconds*1000)+int(round(runTime.microseconds/10000, 0)*10)
+
+
+print ("Maximum Latency: \t", max(y), "\nMinimum Latency: \t", min(y), "\nAverage Latency: \t", round(np.average(y),2))
+print ("Runtime [ms]: \t\t", runTime)
+        
 # Plot results
 plot.figure(figsize=(15, 10))
-plot.xlabel("Pings[#]")
-plot.ylabel("Latency[ms]")
 plot.plot(x,yThreshold,'g')
 plot.plot(x,y, 'b')
 plot.plot(x,yOver, 'r')
+plot.xlabel("Pings[#]")
+#secax = ax.secondary_xaxis('top')#, functions=(forward, inverse))
+#secax.xaxis.set_minor_locator(AutoMinorLocator())
+#secax.set_xlabel('$X_{other}$')
+
+plot.ylabel("Latency[ms]")
+
 plot.show()
 
+
+
 # Program Done
-print ("DONE!!!")
+print ("DONE!!!") 
