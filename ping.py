@@ -61,12 +61,15 @@ for i in x:
         futFlag = False
 
 runTime = datetime.now()-timeStart
-runTime = (runTime.seconds*1000)+int(round(runTime.microseconds/10000, 0)*10)
+stdDev=round(np.std(y), 2)
+#runTime = (runTime.seconds*1000)+int(round(runTime.microseconds/10000, 0)*10)
 
 
-print ("Maximum Latency: \t", max(y), "\nMinimum Latency: \t", min(y), "\nAverage Latency: \t", round(np.average(y),2))
-print ("Runtime [ms]: \t\t", runTime)
+print ("\nPing Information:\n------------------\nMaximum Latency: \t", max(y), "\nMinimum Latency: \t", min(y), "\nAverage Latency: \t", round(np.average(y),2))
+print ("Standard Deviation:\t", stdDev)
+print ("Total Runtime : \t", runTime.seconds,"s", int(round(runTime.microseconds/10000, 0)*10),"ms")
         
+
 # Plot results
 plot.figure(figsize=(15, 10))
 plot.plot(x,yThreshold,'g')
