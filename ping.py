@@ -20,14 +20,14 @@ timeStart = datetime.now()
 Threshold = 80
 
 # Amount of pings to send
-x = range(0,1000)
+pingCount = 2000
+x = range(0,pingCount)
 
 # Size of package to send
-package = 50
+package = 64
 
 # Maximum timout time in sec
 timeout = 2
-
 
 # Initiates variables
 x1 = []
@@ -48,6 +48,7 @@ for i in x:
     else:
         yOver.append(CurrentPing)
 
+runTime = datetime.now()-timeStart
 
 # Write pings above threshold to new array
 for i in x:
@@ -60,15 +61,16 @@ for i in x:
         yOver[i] = y[i]
         futFlag = False
 
-runTime = datetime.now()-timeStart
 stdDev=round(np.std(y), 2)
-#runTime = (runTime.seconds*1000)+int(round(runTime.microseconds/10000, 0)*10)
+runTimeSec = runTime.seconds+runTime.microseconds*1e-6
 
+# Print out network statistics
+print ("\nPing Information:\n------------------")
+print ("Maximum Latency\t\t: \t", max(y), "ms\nMinimum Latency\t\t: \t", min(y), "ms\nAverage Latency\t\t: \t", round(np.average(y),2),"ms")
+print ("Standard Deviation\t:\t", stdDev,"ms")
+print ("Total Runtime\t\t: \t", runTime.seconds,"s", int(round(runTime.microseconds/10000, 0)*10),"ms")
+print ("Average Speed\t\t: \t", round(8*pingCount*package/pow(1024,2)*runTimeSec,2),"Mbps")
 
-print ("\nPing Information:\n------------------\nMaximum Latency: \t", max(y), "\nMinimum Latency: \t", min(y), "\nAverage Latency: \t", round(np.average(y),2))
-print ("Standard Deviation:\t", stdDev)
-print ("Total Runtime : \t", runTime.seconds,"s", int(round(runTime.microseconds/10000, 0)*10),"ms")
-        
 
 # Plot results
 plot.figure(figsize=(15, 10))
